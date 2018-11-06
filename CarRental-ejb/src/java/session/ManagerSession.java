@@ -1,6 +1,7 @@
 package session;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import rental.Car;
+import rental.CarRentalCompany;
 import rental.CarType;
 import rental.RentalStore;
 import rental.Reservation;
@@ -21,22 +23,26 @@ public class ManagerSession implements ManagerSessionRemote {
     
     @Override
     public void addCRC(String crc){
-        
+        em.persist(crc);
     }
     
     @Override
     public void addCarType(String cartype){
-        
+        em.persist(cartype);
     }
     
     @Override
     public void addCar(int carId){
-        
+        em.persist(carId);
     }
     @Override
     public Set<CarType> getCarTypes(String company) {
         try {
-            return new HashSet<CarType>(RentalStore.getRental(company).getAllTypes());
+            List<CarType> cartypeslist = em.createNamedQuery("allCarTypesOfCompany")
+                .setParameter("companyName", company)
+                .getResultList();
+            Set<CarType> cartypes = new HashSet<CarType>(cartypeslist);
+            return cartypes;
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -47,20 +53,27 @@ public class ManagerSession implements ManagerSessionRemote {
     public Set<Integer> getCarIds(String company, String type) {
         Set<Integer> out = new HashSet<Integer>();
         try {
-            for(Car c: RentalStore.getRental(company).getCars(type)){
-                out.add(c.getId());
-            }
+            List<Integer> idlist = em.createNamedQuery("allCarIdsOfType")
+                       .setParameter("companyName", company)
+                       .setParameter("carTypeName", type)
+                       .getResultList();
+            Set<Integer> id = new HashSet<Integer>(idlist);
+            return id;
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        return out;
+
     }
 
     @Override
     public int getNumberOfReservations(String company, String type, int id) {
         try {
-            return RentalStore.getRental(company).getCar(id).getReservations().size();
+            List<Reservation> nbres = em.createNamedQuery("allReservationsForCarId")
+                .setParameter("companyName", company)
+                .setParameter("carId", id)
+                .getResultList();
+            return nbres.size();
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
@@ -69,16 +82,16 @@ public class ManagerSession implements ManagerSessionRemote {
 
     @Override
     public int getNumberOfReservations(String company, String type) {
-        Set<Reservation> out = new HashSet<Reservation>();
         try {
-            for(Car c: RentalStore.getRental(company).getCars(type)){
-                out.addAll(c.getReservations());
-            }
+            List<Reservation> nbres = em.createNamedQuery("allReservationsForCarId")
+                .setParameter("companyName", company)
+                .getResultList();
+            return nbres.size();
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
-        return out.size();
+
     }
 
 }
