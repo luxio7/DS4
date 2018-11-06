@@ -11,8 +11,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name="getAllRentalCompaniesName", query=""),
+    @NamedQuery(name="getAllRentalCompaniesObject", query="")
+})
 public class CarRentalCompany implements Serializable {
 
     private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
