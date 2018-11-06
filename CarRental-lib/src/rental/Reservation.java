@@ -1,7 +1,13 @@
 package rental;
 
-public class Reservation extends Quote {
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Reservation extends Quote implements Serializable {
+    
+    @Id
     private int carId;
     
     /***************

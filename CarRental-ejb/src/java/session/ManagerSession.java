@@ -5,8 +5,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import rental.Car;
-import rental.CarRentalCompany;
 import rental.CarType;
 import rental.RentalStore;
 import rental.Reservation;
@@ -14,6 +15,24 @@ import rental.Reservation;
 @Stateless
 public class ManagerSession implements ManagerSessionRemote {
     
+    @PersistenceContext
+    EntityManager em;
+    
+    
+    @Override
+    public void addCRC(String crc){
+        
+    }
+    
+    @Override
+    public void addCarType(String cartype){
+        
+    }
+    
+    @Override
+    public void addCar(int carId){
+        
+    }
     @Override
     public Set<CarType> getCarTypes(String company) {
         try {
