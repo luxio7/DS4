@@ -17,7 +17,9 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name="getAllRentalCompaniesName", query="Select company.name From CarRentalCompany company"),
-    @NamedQuery(name="getAllRentalCompaniesObject", query="Select company From CarRentalCompany company")
+    @NamedQuery(name="getAllRentalCompaniesObject", query="Select company From CarRentalCompany company"),
+    @NamedQuery(name="getAllCarTypesByCarRentalCompanyName", query="SELECT DISTINCT carType FROM CarRentalCompany company, CarType carType WHERE company.name = :givenName AND carType MEMBER OF company.carTypes"),
+    
 })
 public class CarRentalCompany implements Serializable {
 

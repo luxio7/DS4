@@ -1,6 +1,7 @@
 package session;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import rental.Car;
+import rental.CarRentalCompany;
 import rental.CarType;
 import rental.RentalStore;
 import rental.Reservation;
@@ -18,6 +20,10 @@ public class ManagerSession implements ManagerSessionRemote {
     @PersistenceContext
     EntityManager em;
     
+    public List<CarRentalCompany> getAllCarRentalCompanies(){
+        List<CarRentalCompany> allCrc = em.createNamedQuery("getAllRentalCompaniesObject").getResultList();
+        return allCrc;
+    }
     
     @Override
     public void addCRC(String crc){
@@ -36,7 +42,7 @@ public class ManagerSession implements ManagerSessionRemote {
     @Override
     public Set<CarType> getCarTypes(String company) {
         try {
-            return new HashSet<CarType>(RentalStore.getRental(company).getAllTypes());
+            return new HashSet(em.createNamedQuery("getAllCarTypesByCarRentalCompanyName").setParameter("givenName",company).getResultList());
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
             return null;
