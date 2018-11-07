@@ -16,8 +16,8 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name="getAllRentalCompaniesName", query=""),
-    @NamedQuery(name="getAllRentalCompaniesObject", query="")
+    @NamedQuery(name="getAllRentalCompaniesName", query="Select company.name From CarRentalCompany company"),
+    @NamedQuery(name="getAllRentalCompaniesObject", query="Select company From CarRentalCompany company")
 })
 public class CarRentalCompany implements Serializable {
 
