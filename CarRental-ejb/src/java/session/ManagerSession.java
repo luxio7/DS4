@@ -66,9 +66,9 @@ public class ManagerSession implements ManagerSessionRemote {
     }
 
     @Override
-    public int getNumberOfReservationsBy(String company, String type, String clientName) {
+    public int getNumberOfReservationsBy(String clientName) {
             List<Reservation> nbres = em.createNamedQuery("allReservationsForClient")
-                .setParameter("clientName", type)
+                .setParameter("clientName", clientName)
                 .getResultList();
             return nbres.size();
     }
@@ -105,7 +105,11 @@ public class ManagerSession implements ManagerSessionRemote {
     }
     
     public String getCheapestCarType(Date start, Date end, String region){
-        
+        List<CarType> cartype = em.createNamedQuery("getCheapestCarType")
+                .setParameter("startdate", start)
+                .setParameter("enddate",end)
+                .setParameter("region",region)
+                .getResultList();
         return "";
     }
     
