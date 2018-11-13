@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -17,11 +19,11 @@ import rental.Reservation;
 @Entity
 public class Car implements Serializable{
     
-    @Id
+    @Id @GeneratedValue
     private int id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private CarType type;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Reservation> reservations;
 
     /***************
