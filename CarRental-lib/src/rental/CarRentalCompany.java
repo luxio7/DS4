@@ -72,8 +72,17 @@ import rental.ReservationException;
             + "GROUP BY carType "
             + "ORDER BY tot DESC"),
     
-    @NamedQuery(name="getCheapestCarType",query="SELECT")
-})
+    @NamedQuery(name="getCheapestCarType",
+            query="SELECT car.cartype, min(car.cartype.getentalPricePerDay)"
+            + "FROM(" 
+            + "	SELECT crc.cars FROM(" 
+            + "		SELECT crc FROM CarRentalCompany crc WHERE crc.region = :region))"
+            + "WHERE( " 
+            + "	SELECT COUNT(reservation)" 
+            + "	FROM car.reservation res" 
+            + "	WHERE (res.startdate <= :startdate AND res.enddate >= :enddate))" 
+            + "GROUP BY car.cartype")
+    })
 
 //
 public class CarRentalCompany implements Serializable {
