@@ -48,12 +48,12 @@ import rental.ReservationException;
             + "WHERE reservation.carRenter = :clientName "
             + "AND reservation MEMBER OF car.reservations"),
     
-    @NamedQuery(name = "allReservationsForCarTypeanId",
-            query= "SELECT reservation FROM Reservation reservation, Car car "
-            + "WHERE reservation.rentalCompany = :companyName "
-            + "AND car.type.name = :carTypeName "
-            + "AND reservation MEMBER OF car.reservations"),
-    
+//    @NamedQuery(name = "allReservationsForCarTypeanId",
+//            query= "SELECT reservation FROM Reservation reservation, Car car "
+//            + "WHERE reservation.rentalCompany = :companyName "
+//            + "AND car.type.name = :carTypeName "
+//            + "AND reservation MEMBER OF car.reservations"),
+//    
     @NamedQuery(name= "getBestClient",
             query="SELECT reservation.carRenter, COUNT(reservation) AS tot"
                     + "FROM CarRentalCompany crc,Reservation reservation"
