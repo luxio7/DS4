@@ -1,5 +1,6 @@
 package session;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +12,6 @@ import javax.persistence.PersistenceContext;
 import rental.Car;
 import rental.CarRentalCompany;
 import rental.CarType;
-import rental.RentalStore;
 import rental.Reservation;
 
 @Stateless
@@ -26,9 +26,13 @@ public class ManagerSession implements ManagerSessionRemote {
     }
     
     @Override
-    public void addCRC(String crc){
-        CarRentalCompany crc1 = em.find(CarRentalCompany.class, crc);
-        em.persist(crc1);
+    public void addCRC(CarRentalCompany crc){
+        List<Car> cars = crc.getCars();
+        crc.setCars(new ArrayList<Car>());
+        em.persist(crc);
+       for (Car car : cars) {
+            addCar(car, crc);
+        }
     }
     
     @Override
@@ -37,9 +41,10 @@ public class ManagerSession implements ManagerSessionRemote {
     }
     
     @Override
-    public void addCar(int carId){
-        em.persist(carId);
+    public void addCar(Car car, CarRentalCompany crc){
+        
     }
+    
     @Override
     public Set<CarType> getCarTypes(String company) {
         try {
