@@ -55,7 +55,7 @@ import rental.ReservationException;
             + "AND reservation MEMBER OF car.reservations"),
     
     @NamedQuery(name= "getBestClient",
-            query="SELECT reservation.user, COUNT(reservation) AS tot"
+            query="SELECT reservation.carRenter, COUNT(reservation) AS tot"
                     + "FROM CarRentalCompany crc,Reservation reservation"
                     + "WHERE reservation.rentalCompany = crc.name "
                     + "ORDER BY tot DESC"),
