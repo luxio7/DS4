@@ -15,7 +15,7 @@ public class Reservation extends Quote implements Serializable {
     /***************
      * CONSTRUCTOR *
      ***************/
-
+    public Reservation(){}
     public Reservation(Quote quote, int carId) {
     	super(quote.getCarRenter(), quote.getStartDate(), quote.getEndDate(), 
     		quote.getRentalCompany(), quote.getCarType(), quote.getRentalPrice());

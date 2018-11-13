@@ -27,7 +27,7 @@ public class Car implements Serializable{
     /***************
      * CONSTRUCTOR *
      ***************/
-    
+    public Car(){}
     public Car(int uid, CarType type) {
     	this.id = uid;
         this.type = type;
