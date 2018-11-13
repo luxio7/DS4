@@ -16,6 +16,7 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
 
     public static void main(String[] args) throws Exception {
         // TODO: use updated manager interface to load cars into companies
+        //plz
         new Main("trips").run();
     }
 
