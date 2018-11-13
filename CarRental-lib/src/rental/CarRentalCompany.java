@@ -45,15 +45,13 @@ import rental.ReservationException;
     
     @NamedQuery(name = "allReservationsForCarType",
             query= "SELECT reservation FROM Reservation reservation, Car car "
-            + "WHERE reservation.rentalCompany = :companyName "
-            + "AND car.type.name = :carTypeName "
+            + "WHERE reservation.carRenter = :clientName "
             + "AND reservation MEMBER OF car.reservations"),
     
     @NamedQuery(name = "allReservationsForCarTypeanId",
             query= "SELECT reservation FROM Reservation reservation, Car car "
             + "WHERE reservation.rentalCompany = :companyName "
             + "AND car.type.name = :carTypeName "
-            + "AND car.id = carId"
             + "AND reservation MEMBER OF car.reservations"),
     
     @NamedQuery(name= "getBestClient",

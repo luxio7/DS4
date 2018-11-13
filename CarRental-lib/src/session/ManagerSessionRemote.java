@@ -31,6 +31,6 @@ public interface ManagerSessionRemote {
     
     public String getCheapestCarType(Date start, Date end, String region);
     
-    
+    public int getNumberOfReservationsBy(String clientName);
       
 }
