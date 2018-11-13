@@ -92,6 +92,7 @@ public class CarRentalCompany implements Serializable {
     private List<Car> cars;
     @OneToMany(cascade= CascadeType.ALL)
     private Set<CarType> carTypes = new HashSet<CarType>();
+    
     private List<String> regions;
 
 	
