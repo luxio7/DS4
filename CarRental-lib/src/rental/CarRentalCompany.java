@@ -54,12 +54,12 @@ import rental.ReservationException;
 //            + "AND car.type.name = :carTypeName "
 //            + "AND reservation MEMBER OF car.reservations"),
 //    
-    @NamedQuery(name= "getBestClient",
-            query="SELECT reservation.carRenter, COUNT(reservation) AS tot"
-                    + "FROM CarRentalCompany crc,Reservation reservation"
-                    + "WHERE reservation.rentalCompany = crc.name "
-                    + "ORDER BY tot DESC"),
-    
+//    @NamedQuery(name= "getBestClient",
+//            query="SELECT reservation.carRenter, COUNT(reservation) AS tot"
+//                    + "FROM CarRentalCompany crc,Reservation reservation"
+//                    + "WHERE reservation.rentalCompany = crc.name "
+//                    + "ORDER BY tot DESC"),
+//    
 //    @NamedQuery(name="mostPopularCarType",
 //            query="SELECT carType, COUNT(carType) AS tot "
 //            + "FROM Reservation reservation, CarType carType"
