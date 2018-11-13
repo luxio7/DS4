@@ -34,7 +34,7 @@ public class ManagerSession implements ManagerSessionRemote {
             addCar(car, crc);
         }
     }
-    
+    //
     @Override
     public void addCarToCompany(Car car, String crc){
         CarRentalCompany crc1 = em.find(CarRentalCompany.class, crc);

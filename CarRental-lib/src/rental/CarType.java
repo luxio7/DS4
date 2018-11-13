@@ -13,7 +13,7 @@ public class CarType implements Serializable{
     private double rentalPricePerDay;
     //trunk space in liters
     private float trunkSpace;
-    
+    //
     /***************
      * CONSTRUCTOR *
      ***************/

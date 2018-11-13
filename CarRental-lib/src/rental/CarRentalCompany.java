@@ -34,6 +34,8 @@ import rental.ReservationException;
                       +"ORDER BY tot DESC"),
     @NamedQuery(name="getCheapestCarType",query="SELECT")
 })
+
+//
 public class CarRentalCompany implements Serializable {
 
     private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
