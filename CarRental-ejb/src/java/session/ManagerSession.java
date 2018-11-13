@@ -105,12 +105,13 @@ public class ManagerSession implements ManagerSessionRemote {
     }
     
     public String getCheapestCarType(Date start, Date end, String region){
-        List<CarType> cartype = em.createNamedQuery("getCheapestCarType")
+        List<String> cartype = em.createNamedQuery("getCheapestCarType")
                 .setParameter("startdate", start)
                 .setParameter("enddate",end)
                 .setParameter("region",region)
                 .getResultList();
-        return "";
+        
+        return cartype.get(0);
     }
     
     

@@ -43,7 +43,7 @@ import rental.ReservationException;
             + "WHERE company.name = :givenName "
             + "AND carType MEMBER OF company.carTypes"),
     
-    @NamedQuery(name = "allReservationsForCarType",
+    @NamedQuery(name = "allReservationsForClient",
             query= "SELECT reservation FROM Reservation reservation, Car car "
             + "WHERE reservation.carRenter = :clientName "
             + "AND reservation MEMBER OF car.reservations"),
@@ -71,7 +71,7 @@ import rental.ReservationException;
             + "ORDER BY tot DESC"),
     
     @NamedQuery(name="getCheapestCarType",
-            query="SELECT car.cartype, min(car.cartype.getentalPricePerDay)"
+            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay)"
             + "FROM(" 
             + "	SELECT crc.cars FROM(" 
             + "		SELECT crc FROM CarRentalCompany crc WHERE crc.region = :region))"

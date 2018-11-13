@@ -15,7 +15,6 @@ public interface ManagerSessionRemote {
     
     public Set<Integer> getCarIds(String company,String type);
     
-    public int getNumberOfReservationsBy(String company, String type, String clientName);
     
     public int getNumberOfReservationsForCarType(String company, String type);
     
