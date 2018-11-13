@@ -20,6 +20,10 @@ public class ManagerSession implements ManagerSessionRemote {
     @PersistenceContext
     EntityManager em;
     
+    public List<CarRentalCompany> getAllCarRentalCompanies(){
+        List<CarRentalCompany> allCrc = em.createNamedQuery("getAllRentalCompaniesObject").getResultList();
+        return allCrc;
+    }
     
     @Override
     public void addCRC(String crc){
@@ -38,11 +42,7 @@ public class ManagerSession implements ManagerSessionRemote {
     @Override
     public Set<CarType> getCarTypes(String company) {
         try {
-            List<CarType> cartypeslist = em.createNamedQuery("allCarTypesOfCompany")
-                .setParameter("companyName", company)
-                .getResultList();
-            Set<CarType> cartypes = new HashSet<CarType>(cartypeslist);
-            return cartypes;
+            return new HashSet(em.createNamedQuery("getAllCarTypesByCarRentalCompanyName").setParameter("givenName",company).getResultList());
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
             return null;
