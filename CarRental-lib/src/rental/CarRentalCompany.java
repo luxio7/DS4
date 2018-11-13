@@ -23,15 +23,42 @@ import rental.ReservationException;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name="getAllRentalCompaniesName", query="Select company.name From CarRentalCompany company"),
-    @NamedQuery(name="getAllRentalCompaniesObject", query="Select company From CarRentalCompany company"),
-    @NamedQuery(name="getAllCarTypesByCarRentalCompanyName", query="SELECT DISTINCT carType FROM CarRentalCompany company, CarType carType WHERE company.name = :givenName AND carType MEMBER OF company.carTypes"),
-    @NamedQuery(name= "getBestClient",query="SELECT"),
-    @NamedQuery(name="mostPopularCarType",query="SELECT carType, COUNT(carType) AS tot FROM Reservation reservation, CarType carType"
-                      +"WHERE reservation.rentalCompany = :companyName "
-                      +"AND carType.companyName = :companyName "
-                      +"GROUP BY carType "
-                      +"ORDER BY tot DESC"),
+    @NamedQuery(name="getAllRentalCompaniesName", 
+            query="SELECT company.name "
+                    + "FROM CarRentalCompany company"),
+    
+    @NamedQuery(name="getAllRentalCompaniesObject", 
+            query="SELECT company "
+            + "FROM CarRentalCompany company"),
+    
+    @NamedQuery(name="getAllCarTypesByCarRentalCompanyName", 
+            query="SELECT DISTINCT carType "
+            + "FROM CarRentalCompany company, CarType carType "
+            + "WHERE company.name = :givenName "
+            + "AND carType MEMBER OF company.carTypes"),
+    
+    @NamedQuery(name = "allReservationsForCarType",
+            query= "SELECT reservation FROM Reservation reservation, Car car "
+            + "WHERE reservation.rentalCompany = :companyName "
+            + "AND car.type.name = :carTypeName "
+            + "AND reservation MEMBER OF car.reservations"),
+    
+    @NamedQuery(name= "getBestClient",
+            query="SELECT reservation.user, COUNT(reservation) AS tot"
+                    + "FROM CarRentalCompany crc,Reservation reservation"
+                    + "WHERE reservation.rentalCompany = crc.name "
+                    + "ORDER BY tot DESC"),
+    
+    @NamedQuery(name="mostPopularCarType",
+            query="SELECT carType, COUNT(carType) AS tot "
+            + "FROM Reservation reservation, CarType carType"
+            + "WHERE reservation.rentalCompany = :companyName "
+            + "AND carType.companyName = :companyName "
+            + "AND creationdate >= year + '0101'"
+            + "AND creationdate <= year + '1231'"
+            + "GROUP BY carType "
+            + "ORDER BY tot DESC"),
+    
     @NamedQuery(name="getCheapestCarType",query="SELECT")
 })
 
