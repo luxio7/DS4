@@ -50,57 +50,61 @@ public class ManagerSession implements ManagerSessionRemote {
     
     @Override
     public Set<CarType> getCarTypes(String company) {
-        try {
-            return new HashSet(em.createNamedQuery("getAllCarTypesByCarRentalCompanyName").setParameter("givenName",company).getResultList());
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+
+            return new HashSet(em.createNamedQuery("getAllCarTypesByCarRentalCompanyName")
+                    .setParameter("givenName",company)
+                    .getResultList());
     }
 
     @Override
     public Set<Integer> getCarIds(String company, String type) {
-        Set<Integer> out = new HashSet<Integer>();
-        try {
-            List<Integer> idlist = em.createNamedQuery("allCarIdsOfType")
+            return new HashSet(em.createNamedQuery("allCarIdsOfType")
                        .setParameter("companyName", company)
                        .setParameter("carTypeName", type)
-                       .getResultList();
-            Set<Integer> id = new HashSet<Integer>(idlist);
-            return id;
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-
+                       .getResultList());
     }
 
     @Override
     public int getNumberOfReservations(String company, String type, int id) {
-        try {
-            List<Reservation> nbres = em.createNamedQuery("allReservationsForCarId")
+            List<Reservation> nbres = em.createNamedQuery("allReservationsForCarTypeanId")
                 .setParameter("companyName", company)
+                .setParameter("carTypeName", type)
                 .setParameter("carId", id)
                 .getResultList();
             return nbres.size();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
     }
 
     @Override
     public int getNumberOfReservations(String company, String type) {
-        try {
-            List<Reservation> nbres = em.createNamedQuery("allReservationsForCarId")
+
+            List<Reservation> nbres = em.createNamedQuery("allReservationsForCarType")
                 .setParameter("companyName", company)
+                .setParameter("carTypeName", type)
                 .getResultList();
             return nbres.size();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
-
     }
-
+    
+    public Set<String> getBestClients(){
+        Set<String> bestclients = new HashSet();
+        List<Object[]> clients = em.createNamedQuery("getBestClient")
+                .getResultList();
+        Integer mostres = (Integer) clients.get(0)[1];
+        for(Object[] obj : clients){
+            if (obj[1] == mostres){
+                bestclients.add((String) obj[0]);
+            }
+        }
+        return bestclients;
+    }
+    
+    public CarType getMostPopularCarTypeIn(String carRentalCompanyName, int year){
+        List<CarType> cartype = em.createNamedQuery("mostPopularCarType")
+                .setParameter("companyName",carRentalCompanyName)
+                .setParameter("year",year)
+                .getResultList();
+        return cartype.get(0);
+    }
+    
+    
+    
 }

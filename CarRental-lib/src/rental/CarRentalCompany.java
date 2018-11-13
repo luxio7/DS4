@@ -31,6 +31,12 @@ import rental.ReservationException;
             query="SELECT company "
             + "FROM CarRentalCompany company"),
     
+    @NamedQuery(name = "allCarIdsOfType",
+        query= "SELECT car.id FROM Car car, CarRentalCompany company "
+        + "WHERE company.name = :companyName "
+        + "AND car MEMBER OF company.cars "
+        + "AND car.type.name = :carTypeName"),
+
     @NamedQuery(name="getAllCarTypesByCarRentalCompanyName", 
             query="SELECT DISTINCT carType "
             + "FROM CarRentalCompany company, CarType carType "
@@ -41,6 +47,13 @@ import rental.ReservationException;
             query= "SELECT reservation FROM Reservation reservation, Car car "
             + "WHERE reservation.rentalCompany = :companyName "
             + "AND car.type.name = :carTypeName "
+            + "AND reservation MEMBER OF car.reservations"),
+    
+    @NamedQuery(name = "allReservationsForCarTypeanId",
+            query= "SELECT reservation FROM Reservation reservation, Car car "
+            + "WHERE reservation.rentalCompany = :companyName "
+            + "AND car.type.name = :carTypeName "
+            + "AND car.id = carId"
             + "AND reservation MEMBER OF car.reservations"),
     
     @NamedQuery(name= "getBestClient",
@@ -54,8 +67,8 @@ import rental.ReservationException;
             + "FROM Reservation reservation, CarType carType"
             + "WHERE reservation.rentalCompany = :companyName "
             + "AND carType.companyName = :companyName "
-            + "AND creationdate >= year + '0101'"
-            + "AND creationdate <= year + '1231'"
+            + "AND creationdate >= :year + '0101'"
+            + "AND creationdate <= :year + '1231'"
             + "GROUP BY carType "
             + "ORDER BY tot DESC"),
     
