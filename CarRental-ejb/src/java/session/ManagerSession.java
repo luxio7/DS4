@@ -36,13 +36,16 @@ public class ManagerSession implements ManagerSessionRemote {
     }
     
     @Override
-    public void addCarType(String cartype){
-        em.persist(cartype);
+    public void addCarToCompany(Car car, String crc){
+        CarRentalCompany crc1 = em.find(CarRentalCompany.class, crc);
+        addCar(car, crc1);
     }
     
     @Override
     public void addCar(Car car, CarRentalCompany crc){
-        
+        CarType carType = em.find(CarType.class, car.getType().getName());
+            car.setType(carType);
+        crc.addCar(car);
     }
     
     @Override
