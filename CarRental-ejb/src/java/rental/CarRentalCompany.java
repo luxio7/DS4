@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
@@ -28,7 +28,7 @@ public class CarRentalCompany implements Serializable {
     private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
     @Id
     private String name;
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL)
     private List<Car> cars;
 
     private Set<CarType> carTypes = new HashSet<CarType>();
@@ -109,6 +109,10 @@ public class CarRentalCompany implements Serializable {
     
     public List<Car> getCars(){
         return cars;
+    }
+    
+    public void addCar(Car car){
+        
     }
     public Car getCar(int uid) {
         for (Car car : cars) {

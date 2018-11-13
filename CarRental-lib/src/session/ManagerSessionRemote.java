@@ -21,5 +21,7 @@ public interface ManagerSessionRemote {
     public void addCarType(String cartype);
     
     public void addCar(int carId);
+    
+    
       
 }
