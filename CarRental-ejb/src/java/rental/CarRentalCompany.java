@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
@@ -26,7 +28,9 @@ public class CarRentalCompany implements Serializable {
     private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
     @Id
     private String name;
+    @OneToMany
     private List<Car> cars;
+
     private Set<CarType> carTypes = new HashSet<CarType>();
 	private List<String> regions;
 
@@ -103,6 +107,9 @@ public class CarRentalCompany implements Serializable {
      * CARS *
      *********/
     
+    public List<Car> getCars(){
+        return cars;
+    }
     public Car getCar(int uid) {
         for (Car car : cars) {
             if (car.getId() == uid) {

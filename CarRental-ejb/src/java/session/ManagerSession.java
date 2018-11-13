@@ -27,7 +27,8 @@ public class ManagerSession implements ManagerSessionRemote {
     
     @Override
     public void addCRC(String crc){
-        em.persist(crc);
+        CarRentalCompany crc1 = em.find(CarRentalCompany.class, crc);
+        em.persist(crc1);
     }
     
     @Override
