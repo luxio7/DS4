@@ -26,7 +26,13 @@ import rental.ReservationException;
     @NamedQuery(name="getAllRentalCompaniesName", query="Select company.name From CarRentalCompany company"),
     @NamedQuery(name="getAllRentalCompaniesObject", query="Select company From CarRentalCompany company"),
     @NamedQuery(name="getAllCarTypesByCarRentalCompanyName", query="SELECT DISTINCT carType FROM CarRentalCompany company, CarType carType WHERE company.name = :givenName AND carType MEMBER OF company.carTypes"),
-    
+    @NamedQuery(name= "getBestClient",query="SELECT"),
+    @NamedQuery(name="mostPopularCarType",query="SELECT carType, COUNT(carType) AS tot FROM Reservation reservation, CarType carType"
+                      +"WHERE reservation.rentalCompany = :companyName "
+                      +"AND carType.companyName = :companyName "
+                      +"GROUP BY carType "
+                      +"ORDER BY tot DESC"),
+    @NamedQuery(name="getCheapestCarType",query="SELECT")
 })
 public class CarRentalCompany implements Serializable {
 
