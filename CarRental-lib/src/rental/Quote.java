@@ -16,6 +16,7 @@ public class Quote implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date endDate;
     private String carRenter;
+    
     private String rentalCompany;
     private String carType;
     private double rentalPrice;
