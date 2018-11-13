@@ -99,7 +99,7 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
 
     @Override
     protected String getCheapestCarType(CarRentalSessionRemote session, Date start, Date end, String region) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return session.getCheapestCarType(start, end, region);
     }
 
     @Override
@@ -142,11 +142,11 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
 
     @Override
     protected int getNumberOfReservationsBy(ManagerSessionRemote ms, String clientName) throws Exception {
-        
+        return ms.getNumberOfReservationsBy(clientName);
     }
 
     @Override
     protected int getNumberOfReservationsForCarType(ManagerSessionRemote ms, String carRentalName, String carType) throws Exception {
-        
+        return ms.getNumberOfReservationsForCarType(carRentalName, carType);
     }
 }

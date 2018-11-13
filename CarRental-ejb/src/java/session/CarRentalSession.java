@@ -97,4 +97,15 @@ public class CarRentalSession implements CarRentalSessionRemote {
         }
         renter = name;
     }
+   
+  @Override
+    public String getCheapestCarType(Date start, Date end, String region){
+        List<String> cartype = em.createNamedQuery("getCheapestCarType")
+                .setParameter("startdate", start)
+                .setParameter("enddate",end)
+                .setParameter("region",region)
+                .getResultList();
+        
+        return cartype.get(0);
+    }
 }
