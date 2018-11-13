@@ -27,8 +27,8 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
     public static void main(String[] args) throws Exception {
         // TODO: use updated manager interface to load cars into companies
                 
-        CarRentalCompany hertzCompany = loadRental("Hertz", "hertz.csv");
-        CarRentalCompany dockxCompany = loadRental("Dockx", "dockx.csv");
+        CarRentalCompany hertzCompany = loadRental("hertz.csv");
+        CarRentalCompany dockxCompany = loadRental("dockx.csv");
         
         Main main = new Main("trips");
         
@@ -39,7 +39,7 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
         main.run();
     }
     
-    public static CarRentalCompany loadRental(String CarRentalName, String datafile) throws NumberFormatException, IOException {
+    public static CarRentalCompany loadRental(String datafile) throws NumberFormatException, IOException {
         CrcData data = loadData(datafile);
         CarRentalCompany company = new CarRentalCompany(data.name, data.regions, data.cars);
         return company;
