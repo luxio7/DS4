@@ -1,6 +1,7 @@
 package session;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -105,6 +106,9 @@ public class ManagerSession implements ManagerSessionRemote {
         return cartype.get(0);
     }
     
+    public String getCheapestCarType(Date start, Date end, String region){
+        return "";
+    }
     
     
 }
