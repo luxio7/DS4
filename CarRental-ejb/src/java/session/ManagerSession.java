@@ -31,7 +31,7 @@ public class ManagerSession implements ManagerSessionRemote {
         List<Car> cars = crc.getCars();
         crc.setCars(new ArrayList<Car>());
         em.persist(crc);
-       for (Car car : cars) {
+       for (Car car : cars) {   
             addCar(car, crc);
         }
     }    
@@ -49,6 +49,7 @@ public class ManagerSession implements ManagerSessionRemote {
         crc.addCar(car);
     }
     
+  
     @Override
     public Set<CarType> getCarTypes(String company) {
 

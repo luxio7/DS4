@@ -12,14 +12,10 @@ import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import rental.CarType;
-import rental.Quote;
-import rental.Reservation;
-import rental.ReservationConstraints;
-import rental.ReservationException;
 
 @Entity
 @NamedQueries({
@@ -90,7 +86,7 @@ public class CarRentalCompany implements Serializable {
     private String name;
     @OneToMany(cascade= CascadeType.ALL)
     private List<Car> cars;
-    @OneToMany(cascade= CascadeType.ALL)
+    @ManyToMany(cascade= CascadeType.ALL)
     private Set<CarType> carTypes = new HashSet<CarType>();
     private List<String> regions;
 
@@ -135,11 +131,13 @@ public class CarRentalCompany implements Serializable {
     /*************
      * CAR TYPES *
      *************/
-    
+   
     public Collection<CarType> getAllTypes() {
         return carTypes;
     }
-
+    public void setCarType(Set<CarType> cartype){
+        this.carTypes = cartype;
+    }
     public CarType getType(String carTypeName) {
         for(CarType type:carTypes){
             if(type.getName().equals(carTypeName))
