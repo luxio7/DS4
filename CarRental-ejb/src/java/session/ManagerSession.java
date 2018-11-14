@@ -34,6 +34,7 @@ public class ManagerSession implements ManagerSessionRemote {
        for (Car car : cars) {   
             addCar(car, crc);
         }
+       
     }    
     //
     @Override
