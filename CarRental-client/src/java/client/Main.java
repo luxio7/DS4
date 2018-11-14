@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
+import javafx.util.Pair;
 import javax.naming.InitialContext;
 import rental.Car;
 import rental.CarRentalCompany;
@@ -44,13 +45,14 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
         CarRentalCompany company = new CarRentalCompany(data.name, data.regions, data.cars);
         return company;
     }
-
+    
+    private static int nextuid = 0;
+    
     public static CrcData loadData(String datafile)
             throws NumberFormatException, IOException {
 
         CrcData out = new CrcData();
         StringTokenizer csvReader;
-        int nextuid = 0;
        
         //open file from jar
         BufferedReader in = new BufferedReader(new InputStreamReader(Main.class.getClassLoader().getResourceAsStream(datafile)));
@@ -76,7 +78,9 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
                             out.name);
                     //create N new cars with given type, where N is the 5th field
                     for (int i = Integer.parseInt(csvReader.nextToken()); i > 0; i--) {
-                        out.cars.add(new Car(nextuid++, type));
+                        nextuid++;
+                        System.out.println(i + " adding car " + nextuid);
+                        out.cars.add(new Car(nextuid, type));
                     }        
                 }
             } 

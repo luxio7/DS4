@@ -84,8 +84,10 @@ public class CarRentalCompany implements Serializable {
     private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
     @Id
     private String name;
+    
     @OneToMany(cascade= CascadeType.ALL)
     private List<Car> cars;
+    
     @ManyToMany(cascade= CascadeType.ALL)
     private Set<CarType> carTypes = new HashSet<CarType>();
     
