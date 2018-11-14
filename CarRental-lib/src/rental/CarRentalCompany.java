@@ -82,6 +82,7 @@ import javax.persistence.OneToMany;
 public class CarRentalCompany implements Serializable {
 
     private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
+    
     @Id
     private String name;
     

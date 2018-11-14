@@ -34,8 +34,12 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
         Main main = new Main("trips");
         
         ManagerSessionRemote managerSession = main.getNewManagerSession("", "");
+        System.out.println("add hertz..");
         managerSession.addCRC(hertzCompany);
+        System.out.println("..hertz geadd");
+        System.out.println("add dockx..");
         managerSession.addCRC(dockxCompany);
+        System.out.println("..dockx geadd");
         
         main.run();
     }
