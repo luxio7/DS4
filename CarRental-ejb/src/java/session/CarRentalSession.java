@@ -49,7 +49,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
         }
         return new LinkedList(AvailableCarTypes);
     }
-
+/*
     @Override
     public Quote createQuote(String company, ReservationConstraints constraints) throws ReservationException {
         //find the carrentalcompany class by its ID, in this case its name that is stored in the string 'company'
@@ -65,6 +65,32 @@ public class CarRentalSession implements CarRentalSessionRemote {
             throw new ReservationException(e);
         }
     }
+  */  
+    @Override
+    public void createQuote(String client,ReservationConstraints constraint) throws Exception{
+    boolean go = false;
+    Exception reservationexception = null;
+
+    if (!getAllRentalCompanies().isEmpty()){
+            go = true;
+    }
+
+    for (String s: getAllRentalCompanies()){
+          try{
+              CarRentalCompany crc = em.find(CarRentalCompany.class, s);
+              Quote quote = crc.createQuote(constraint, client);
+              quotes.add(quote);
+              go = false;
+          }
+          catch (Exception ex){
+              reservationexception = ex;
+          }
+
+    }
+    if (go){
+        throw reservationexception;
+    }
+  }
 
     @Override
     public List<Quote> getCurrentQuotes() {

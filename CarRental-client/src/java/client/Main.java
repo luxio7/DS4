@@ -139,7 +139,7 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
 
     @Override
     protected void addQuoteToSession(CarRentalSessionRemote session, String name, Date start, Date end, String carType, String region) throws Exception {
-        System.out.println("start maken reservations");
+        System.out.println("start maken reservations " + name);
         ReservationConstraints rs = new ReservationConstraints(start,end,carType,region);
         System.out.println("reservations zijn gemaakt (dit is in main)");
         System.out.println(rs.toString());

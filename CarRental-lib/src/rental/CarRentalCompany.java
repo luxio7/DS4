@@ -234,7 +234,7 @@ public class CarRentalCompany implements Serializable {
         logger.log(Level.INFO, "<{0}> Creating tentative reservation for {1} with constraints {2}",
                 new Object[]{name, guest, constraints.toString()});
 
-        System.out.println("komt in create Quote");
+        System.out.println("komt in create ");
         if (!this.regions.contains(constraints.getRegion()) || !isAvailable(constraints.getCarType(), constraints.getStartDate(), constraints.getEndDate())) {
             throw new ReservationException("<" + name
                     + "> No cars available to satisfy the given constraints.");
