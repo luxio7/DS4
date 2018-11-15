@@ -44,18 +44,18 @@ import javax.persistence.OneToMany;
             + "WHERE reservation.carRenter = :clientName "
             + "AND reservation MEMBER OF car.reservations"),
     
-//    @NamedQuery(name = "allReservationsForCarTypeanId",
-//            query= "SELECT reservation FROM Reservation reservation, Car car "
-//            + "WHERE reservation.rentalCompany = :companyName "
-//            + "AND car.type.name = :carTypeName "
-//            + "AND reservation MEMBER OF car.reservations"),
-//    
+    @NamedQuery(name = "allReservationsForCarTypeanId",
+            query= "SELECT reservation FROM Reservation reservation, Car car "
+            + "WHERE reservation.rentalCompany = :companyName "
+            + "AND car.type.name = :carTypeName "
+            + "AND reservation MEMBER OF car.reservations"),
+    
 //    @NamedQuery(name= "getBestClient",
 //            query="SELECT reservation.carRenter, COUNT(reservation) AS tot"
 //                    + "FROM CarRentalCompany crc,Reservation reservation"
 //                    + "WHERE reservation.rentalCompany = crc.name "
 //                    + "ORDER BY tot DESC"),
-//    
+    
 //    @NamedQuery(name="mostPopularCarType",
 //            query="SELECT carType, COUNT(carType) AS tot "
 //            + "FROM Reservation reservation, CarType carType"
@@ -65,7 +65,7 @@ import javax.persistence.OneToMany;
 //            + "AND creationdate <= :year + '1231'"
 //            + "GROUP BY carType "
 //            + "ORDER BY tot DESC"),
-    
+//    
 //    @NamedQuery(name="getCheapestCarType",
 //            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay)"
 //            + "FROM(" 

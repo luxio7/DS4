@@ -94,6 +94,7 @@ public class ManagerSession implements ManagerSessionRemote {
             return nbres.size();
     }
     
+    @Override
     public Set<String> getBestClients(){
         Set<String> bestclients = new HashSet();
         List<Object[]> clients = em.createNamedQuery("getBestClient")
@@ -107,6 +108,7 @@ public class ManagerSession implements ManagerSessionRemote {
         return bestclients;
     }
     
+    @Override
     public CarType getMostPopularCarTypeIn(String carRentalCompanyName, int year){
         List<CarType> cartype = em.createNamedQuery("mostPopularCarType")
                 .setParameter("companyName",carRentalCompanyName)
