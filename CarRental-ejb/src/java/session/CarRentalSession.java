@@ -53,9 +53,12 @@ public class CarRentalSession implements CarRentalSessionRemote {
     @Override
     public Quote createQuote(String company, ReservationConstraints constraints) throws ReservationException {
         //find the carrentalcompany class by its ID, in this case its name that is stored in the string 'company'
+        System.out.println("komt in createQuote in carRentalSession");
         CarRentalCompany crc = em.find(CarRentalCompany.class, company);
+        System.out.println("heeft crc gevonden en gaat nu proberen quote to te voegen");
         try {
             Quote out = crc.createQuote(constraints, renter);
+            System.out.println("createQuote is gelukt");
             quotes.add(out);
             return out;
         } catch(Exception e) {
