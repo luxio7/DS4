@@ -58,16 +58,16 @@ import javax.persistence.OneToMany;
     
 //    @NamedQuery(name="mostPopularCarType",
 //            query="SELECT carType, COUNT(carType) AS tot "
-//            + "FROM Reservation reservation, CarType carType"
+//            + "FROM Reservation reservation, CarType carType "
 //            + "WHERE reservation.rentalCompany = :companyName "
 //            + "AND carType.companyName = :companyName "
-//            + "AND creationdate >= :year + '0101'"
-//            + "AND creationdate <= :year + '1231'"
+//            + "AND creationdate >= :year + '0101' "
+//            + "AND creationdate <= :year + '1231' "
 //            + "GROUP BY carType "
 //            + "ORDER BY tot DESC"),
 //    
 //    @NamedQuery(name="getCheapestCarType",
-//            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay)"
+//            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay) "
 //            + "FROM(" 
 //            + "	SELECT crc.cars FROM(" 
 //            + "		SELECT crc FROM CarRentalCompany crc WHERE crc.region = :region))"
