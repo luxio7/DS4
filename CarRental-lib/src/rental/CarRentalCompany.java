@@ -51,31 +51,31 @@ import javax.persistence.OneToMany;
             + "AND reservation MEMBER OF car.reservations"),
     
     @NamedQuery(name= "getBestClient",
-            query="SELECT reservation.carRenter, COUNT(reservation) AS tot "
-                    + "FROM CarRentalCompany crc, Reservation reservation"
-                    + "WHERE reservation.rentalCompany = crc.name "
+            query="SELECT reservation.carRenter, COUNT(reservation.id) AS tot "
+                    + "FROM Reservation reservation"
+                    + "GROUP BY reservation.carRenter"
                     + "ORDER BY tot DESC"),
     
-//    @NamedQuery(name="mostPopularCarType",
-//            query="SELECT carType, COUNT(carType) AS tot "
-//            + "FROM Reservation reservation, CarType carType"
-//            + "WHERE reservation.rentalCompany = :companyName "
-//            + "AND carType.companyName = :companyName "
-//            + "AND creationdate >= :year + '0101'"
-//            + "AND creationdate <= :year + '1231'"
-//            + "GROUP BY carType "
-//            + "ORDER BY tot DESC"),
-//    
-//    @NamedQuery(name="getCheapestCarType",
-//            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay)"
-//            + "FROM(" 
-//            + "	SELECT crc.cars FROM(" 
-//            + "		SELECT crc FROM CarRentalCompany crc WHERE crc.region = :region))"
-//            + "WHERE( " 
-//            + "	SELECT COUNT(reservation)" 
-//            + "	FROM car.reservation res" 
-//            + "	WHERE (res.startdate <= :startdate AND res.enddate >= :enddate))" 
-//            + "GROUP BY car.cartype")
+    @NamedQuery(name="mostPopularCarType",
+            query="SELECT carType, COUNT(carType) AS tot "
+            + "FROM Reservation reservation, CarType carType"
+            + "WHERE reservation.rentalCompany = :companyName "
+            + "AND carType.companyName = :companyName "
+            + "AND creationdate >= :year + '0101'"
+            + "AND creationdate <= :year + '1231'"
+            + "GROUP BY carType "
+            + "ORDER BY tot DESC"),
+    
+    @NamedQuery(name="getCheapestCarType",
+            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay)"
+            + "FROM(" 
+            + "	SELECT crc.cars FROM(" 
+            + "		SELECT crc FROM CarRentalCompany crc WHERE crc.region = :region))"
+            + "WHERE( " 
+            + "	SELECT COUNT(reservation)" 
+            + "	FROM car.reservation res" 
+            + "	WHERE (res.startdate <= :startdate AND res.enddate >= :enddate))" 
+            + "GROUP BY car.cartype")
     })
 
 //
