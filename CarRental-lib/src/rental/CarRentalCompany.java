@@ -65,6 +65,7 @@ import javax.persistence.OneToMany;
             + " GROUP BY reservation.carType "
             + " ORDER BY tot DESC")
 //    
+        
 //    @NamedQuery(name="getCheapestCarType",
 //            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay) "
 //            + "FROM(" 
