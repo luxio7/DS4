@@ -79,7 +79,6 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
                     //create N new cars with given type, where N is the 5th field
                     for (int i = Integer.parseInt(csvReader.nextToken()); i > 0; i--) {
                         nextuid++;
-                        System.out.println(i + " adding car " + nextuid);
                         out.cars.add(new Car(nextuid, type));
                     }        
                 }
