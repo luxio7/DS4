@@ -1,5 +1,6 @@
 package session;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -49,23 +50,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
         }
         return new LinkedList(AvailableCarTypes);
     }
-/*
-    @Override
-    public Quote createQuote(String company, ReservationConstraints constraints) throws ReservationException {
-        //find the carrentalcompany class by its ID, in this case its name that is stored in the string 'company'
-        System.out.println("komt in createQuote in carRentalSession");
-        CarRentalCompany crc = em.find(CarRentalCompany.class, company);
-        System.out.println("heeft crc gevonden en gaat nu proberen quote to te voegen");
-        try {
-            Quote out = crc.createQuote(constraints, renter);
-            System.out.println("createQuote is gelukt");
-            quotes.add(out);
-            return out;
-        } catch(Exception e) {
-            throw new ReservationException(e);
-        }
-    }
-  */  
+
     @Override
     public void createQuote(String client,ReservationConstraints constraint) throws Exception{
     boolean go = false;
@@ -129,12 +114,39 @@ public class CarRentalSession implements CarRentalSessionRemote {
    
   @Override
     public String getCheapestCarType(Date start, Date end, String region){
-        List<String> cartype = em.createNamedQuery("getCheapestCarType")
+        
+        List<CarType> cartype = em.createNamedQuery("getCheapestCarType")
                 .setParameter("startdate", start)
                 .setParameter("enddate",end)
-                .setParameter("region",region)
                 .getResultList();
         
-        return cartype.get(0);
+        
+        List<CarRentalCompany> crcList = new ArrayList();
+        for(String crc : getAllRentalCompanies()){
+            CarRentalCompany crc1 = em.find(CarRentalCompany.class, crc);
+            if(crc1.getRegions().contains(region)){
+                crcList.add(crc1);
+            }
+                              
+        }
+        List<CarType> ctregion = new ArrayList();
+        for(CarRentalCompany crc : crcList){
+            for (CarType ctreg : cartype){
+                if (crc.getAllTypes().contains(ctreg)){
+                    ctregion.add(ctreg);
+                }
+
+            }
+        }       
+        Double minprice = ctregion.get(0).getRentalPricePerDay();
+        String cct = "";
+        for(CarType ct : ctregion){
+            if (ct.getRentalPricePerDay() <= minprice){
+                minprice = ct.getRentalPricePerDay();
+                cct = ct.toString();
+            }
+        }
+        
+        return cct;
     }
 }

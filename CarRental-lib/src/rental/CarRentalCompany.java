@@ -66,15 +66,12 @@ import javax.persistence.OneToMany;
             + " ORDER BY tot DESC"),    
         
     @NamedQuery(name="getCheapestCarType",
-            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay) "
-            + "FROM(" 
-            + "	SELECT crc.cars FROM(" 
-            + "		SELECT crc FROM CarRentalCompany crc WHERE crc.region = :region))"
-            + "WHERE( " 
-            + "	SELECT COUNT(reservation)" 
-            + "	FROM car.reservation res" 
-            + "	WHERE (res.startdate <= :startdate AND res.enddate >= :enddate))" 
-            + "GROUP BY car.cartype")
+            query="SELECT cartype "
+            + "FROM CarType cartype, Car car, Reservation res "
+            + "WHERE car.type = cartype "
+            + "AND res.carId = car.id "
+            + "AND res.startDate BETWEEN :startdate AND :enddate " 
+            + "GROUP BY cartype")
     })
 
 //
