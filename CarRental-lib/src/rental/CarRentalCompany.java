@@ -63,19 +63,18 @@ import javax.persistence.OneToMany;
             + " WHERE reservation.rentalCompany = :companyName "
             + " AND FUNC('YEAR', reservation.startDate) = :year "
             + " GROUP BY reservation.carType "
-            + " ORDER BY tot DESC")
-//    
+            + " ORDER BY tot DESC"),    
         
-//    @NamedQuery(name="getCheapestCarType",
-//            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay) "
-//            + "FROM(" 
-//            + "	SELECT crc.cars FROM(" 
-//            + "		SELECT crc FROM CarRentalCompany crc WHERE crc.region = :region))"
-//            + "WHERE( " 
-//            + "	SELECT COUNT(reservation)" 
-//            + "	FROM car.reservation res" 
-//            + "	WHERE (res.startdate <= :startdate AND res.enddate >= :enddate))" 
-//            + "GROUP BY car.cartype")
+    @NamedQuery(name="getCheapestCarType",
+            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay) "
+            + "FROM(" 
+            + "	SELECT crc.cars FROM(" 
+            + "		SELECT crc FROM CarRentalCompany crc WHERE crc.region = :region))"
+            + "WHERE( " 
+            + "	SELECT COUNT(reservation)" 
+            + "	FROM car.reservation res" 
+            + "	WHERE (res.startdate <= :startdate AND res.enddate >= :enddate))" 
+            + "GROUP BY car.cartype")
     })
 
 //
