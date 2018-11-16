@@ -1,12 +1,11 @@
 package session;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,12 +13,15 @@ import rental.Car;
 import rental.CarRentalCompany;
 import rental.CarType;
 import rental.Reservation;
+import java.util.Date;
 
 @Stateless
 public class ManagerSession implements ManagerSessionRemote {
     
     @PersistenceContext
     EntityManager em;
+    
+    static final DateFormat DATE_FORMAT = new SimpleDateFormat("d/M/y");
     
     public List<CarRentalCompany> getAllCarRentalCompanies(){
         List<CarRentalCompany> allCrc = em.createNamedQuery("getAllRentalCompaniesObject").getResultList();
@@ -87,7 +89,7 @@ public class ManagerSession implements ManagerSessionRemote {
     @Override
     public int getNumberOfReservationsForCarType(String company, String type) {
 
-            List<Reservation> nbres = em.createNamedQuery("allReservationsForCarType")
+            List<Reservation> nbres = em.createNamedQuery("allReservationsForCarTypeanId")
                 .setParameter("companyName", company)
                 .setParameter("carTypeName", type)
                 .getResultList();
@@ -99,7 +101,7 @@ public class ManagerSession implements ManagerSessionRemote {
         Set<String> bestclients = new HashSet();
         List<Object[]> clients = em.createNamedQuery("getBestClient")
                 .getResultList();
-        Integer mostres = (Integer) clients.get(0)[1];
+        Long mostres = (Long) clients.get(0)[1];
         for(Object[] obj : clients){
             if (obj[1] == mostres){
                 bestclients.add((String) obj[0]);
@@ -109,12 +111,13 @@ public class ManagerSession implements ManagerSessionRemote {
     }
     
     @Override
-    public CarType getMostPopularCarTypeIn(String carRentalCompanyName, int year){
-        List<CarType> cartype = em.createNamedQuery("mostPopularCarType")
+    public CarType getMostPopularCarTypeIn(String carRentalCompanyName, int year) throws Exception{
+        List<Object[]> cartype = em.createNamedQuery("mostPopularCarType")
                 .setParameter("companyName",carRentalCompanyName)
                 .setParameter("year",year)
                 .getResultList();
-        return cartype.get(0);
+        CarType cartypefound = em.find(CarType.class, ((String)cartype.get(0)[0]+'-'+carRentalCompanyName));
+        return cartypefound;
     }
     
     

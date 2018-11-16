@@ -123,6 +123,7 @@ public abstract class AbstractTestManagement<ReservationSession, ManagerSession>
             String typeNameIs = null;
 			try {
 				typeNameIs = getCheapestCarType(managerResSession, startDate, endDate, region);
+                                
 			} catch (Exception e) { throw new ApplicationException(e); }
 			
             if (typeNameIs != null && typeNameShoudBe.contains(typeNameIs.toLowerCase())) {

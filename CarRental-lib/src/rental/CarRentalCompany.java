@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+
 @Entity
 @NamedQueries({
     @NamedQuery(name="getAllRentalCompaniesName", 
@@ -55,16 +56,14 @@ import javax.persistence.OneToMany;
                     + " FROM Reservation reservation"
                     + " GROUP BY reservation.carRenter"
                     + " ORDER BY tot DESC "),
-    
-//    @NamedQuery(name="mostPopularCarType",
-//            query="SELECT carType, COUNT(carType) AS tot "
-//            + "FROM Reservation reservation, CarType carType "
-//            + "WHERE reservation.rentalCompany = :companyName "
-//            + "AND carType.companyName = :companyName "
-//            + "AND creationdate >= :year + '0101' "
-//            + "AND creationdate <= :year + '1231' "
-//            + "GROUP BY carType "
-//            + "ORDER BY tot DESC"),
+        
+     @NamedQuery(name="mostPopularCarType",
+            query="SELECT reservation.carType, COUNT(reservation.carType) AS tot "
+            + " FROM Reservation reservation "
+            + " WHERE reservation.rentalCompany = :companyName "
+            + " AND FUNC('YEAR', reservation.startDate) = :year "
+            + " GROUP BY reservation.carType "
+            + " ORDER BY tot DESC")
 //    
 //    @NamedQuery(name="getCheapestCarType",
 //            query="SELECT car.cartype.name, min(car.cartype.getentalPricePerDay) "

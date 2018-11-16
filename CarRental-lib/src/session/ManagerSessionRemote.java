@@ -25,7 +25,7 @@ public interface ManagerSessionRemote {
     
     public Set<String> getBestClients();
     
-    public CarType getMostPopularCarTypeIn(String carRentalCompanyName, int year);
+   public CarType getMostPopularCarTypeIn(String carRentalCompanyName, int year) throws Exception;
     
     public int getNumberOfReservationsBy(String clientName);
     
