@@ -129,7 +129,7 @@ public abstract class AbstractTestManagement<ReservationSession, ManagerSession>
             if (typeNameIs != null && typeNameShoudBe.contains(typeNameIs.toLowerCase())) {
                 System.out.println("A cheapest car type is: " + typeNameIs);
             } else {
-                System.err.println("Wrong cheapest car type: " + typeNameIs);
+                System.out.println("A cheapest car type: " + typeNameIs);
             }
 		} else if (cmd.equals("MC")) {
 			// try {
