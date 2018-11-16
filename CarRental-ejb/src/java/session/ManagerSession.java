@@ -13,7 +13,8 @@ import rental.Car;
 import rental.CarRentalCompany;
 import rental.CarType;
 import rental.Reservation;
-import java.util.Date;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
 
 @Stateless
 public class ManagerSession implements ManagerSessionRemote {
@@ -29,19 +30,14 @@ public class ManagerSession implements ManagerSessionRemote {
     }
     
     @Override
+    @TransactionAttribute(REQUIRED)
     public void addCRC(CarRentalCompany crc){
-        System.out.println("komt in addCRC in managersession");
         List<Car> cars = crc.getCars();
-        System.out.println("hij komt bij crc.setCars");
         crc.setCars(new ArrayList<Car>());
-        System.out.println("hij komt bij persist");
         em.persist(crc);
-        System.out.println("hij komt bij for loop");
         for (Car car : cars) {
-            System.out.println("hij komt in for loop");
             addCar(car, crc);
         }
-        System.out.println("hij komt uit for loop");
         
        
     }    

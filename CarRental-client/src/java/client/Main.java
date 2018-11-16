@@ -34,12 +34,8 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
         Main main = new Main("trips");
         
         ManagerSessionRemote managerSession = main.getNewManagerSession("", "");
-        System.out.println("add hertz..");
         managerSession.addCRC(hertzCompany);
-        System.out.println("..hertz geadd");
-        System.out.println("add dockx..");
         managerSession.addCRC(dockxCompany);
-        System.out.println("..dockx geadd");
         
         main.run();
     }
@@ -140,10 +136,7 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
 
     @Override
     protected void addQuoteToSession(CarRentalSessionRemote session, String name, Date start, Date end, String carType, String region) throws Exception {
-        System.out.println("start maken reservations " + name);
         ReservationConstraints rs = new ReservationConstraints(start,end,carType,region);
-        System.out.println("reservations zijn gemaakt (dit is in main)");
-        System.out.println(rs.toString());
         session.createQuote(name, rs);
     }
 

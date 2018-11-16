@@ -7,8 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
+import javax.ejb.EJBException;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import rental.CarRentalCompany;
@@ -87,6 +90,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
 
 
     @Override
+    @TransactionAttribute(REQUIRED)
     public List<Reservation> confirmQuotes() throws ReservationException {
         List<Reservation> done = new LinkedList<Reservation>();
         String nameCompany;
@@ -98,8 +102,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
                 done.add(crc.confirmQuote(quote));
             }
         } catch (Exception e) {
-            context.setRollbackOnly();
-            throw new ReservationException(e);
+            throw new EJBException(e);
         }
         return done;
     }
